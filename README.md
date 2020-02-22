@@ -1,4 +1,4 @@
-# bungalow
+# Bungalow challenge
 
 ## Project setup
 ```
@@ -20,5 +20,12 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Libraries added:
+
+#### Vue-awesome-swiper
+
+this library is a wrapper for 
+swiper slider (https://swiperjs.com/). I decided to use it for 3 reasons:
+- it's a good slider, has good responsiveness, and it can lazy load the images, helping to optimize the main page.
+- the wrapper transforms the library into a plug-and-play component, speeding up development.
+- I've used it in the past and had no problems with it.

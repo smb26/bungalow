@@ -1,28 +1,35 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div id="app" v-if="ready">
+    <Card
+      v-for="property in data.results"
+      :property="property"
+      :key="property.id"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import Card from "@/components/Card.vue";
 export default {
-  name: "App",
   components: {
-    HelloWorld
+    Card
+  },
+  data() {
+    return {
+      data: null,
+      ready: false
+    };
+  },
+  mounted() {
+    window
+      .fetch(
+        "https://stage-fieldstone.bungalow.com/api/v1/listings/properties/?market__slug=seattle"
+      )
+      .then(response => response.json())
+      .then(data => {
+        this.data = data;
+        this.ready = true;
+      });
   }
 };
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
