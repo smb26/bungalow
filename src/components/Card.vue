@@ -1,27 +1,52 @@
 <template>
-  <div>
+  <div
+    class="border-b-2 border-black flex flex-col justify-start items-stretch"
+  >
     <div>
-      <Swiper :options="options" v-if="property.images.length">
-        <SwiperSlide v-for="image in property.images" :key="image.order">
+      <Swiper class="group" :options="options" v-if="property.images.length">
+        <SwiperSlide
+          class="h-64"
+          v-for="image in property.images"
+          :key="image.order"
+        >
           <img
+            class="w-full h-full object-cover swiper-lazy"
             :data-src="image.sm_url"
-            class="swiper-lazy"
-            style="height: 300px"
           />
         </SwiperSlide>
+        <div
+          class="swiper-button-prev swiper-button-black hidden group-hover:block"
+          slot="button-prev"
+        ></div>
+        <div
+          class="swiper-button-next swiper-button-black hidden group-hover:block"
+          slot="button-next"
+        ></div>
       </Swiper>
-      <p v-else>Coming soon</p>
+      <div
+        v-else
+        class="w-full h-64 overflow-hidden flex justify-center items-center bg-gray-200"
+      >
+        <p class="text-gray-600">Coming soon</p>
+      </div>
     </div>
-    <p>{{ roomsAvailable }}</p>
-    <p>{{ property.headline }}</p>
-    <p>{{ property.price }}</p>
-    <p>
-      {{
-        property.available_room_count === 1
-          ? cheapestPrice
-          : `${cheapestPrice} - ${highestPrice}`
-      }}
-    </p>
+    <div
+      class="flex flex-col items-start justify-between pt-5 pb-2 pr-2 flex-grow"
+    >
+      <div class="flex flex-col items-start mb-6">
+        <p class="border border-black text-sm font-bold py-1 px-2 mb-3">
+          {{ roomsAvailable }}
+        </p>
+        <p class="text-xl font-bold">{{ property.headline }}</p>
+      </div>
+      <p class="text-lg">
+        {{
+          property.available_room_count === 1
+            ? cheapestPrice
+            : `${cheapestPrice} - ${highestPrice}`
+        }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -48,6 +73,10 @@ export default {
         lazy: {
           loadPrevNext: true,
           loadOnTransitionStart: true
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
         }
       }
     };
